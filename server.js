@@ -16,41 +16,41 @@ const PORT = process.env.PORT ||5000;
 
 
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
-const connectionString = "mongodb+srv://nodejs:helloworld@cluster0.zwfh3di.mongodb.net/?retryWrites=true&w=majority";
+// const { MongoClient, ServerApiVersion } = require('mongodb');
+// const connectionString = "mongodb+srv://nodejs:helloworld@cluster0.zwfh3di.mongodb.net/?retryWrites=true&w=majority";
 
-async function addData() {
-    try {
-      // Connect to the MongoDB Atlas cluster
-      const client = await MongoClient.connect(connectionString, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      });
+// async function addData() {
+//     try {
+//       // Connect to the MongoDB Atlas cluster
+//       const client = await MongoClient.connect(connectionString, {
+//         useNewUrlParser: true,
+//         useUnifiedTopology: true,
+//       });
   
-      // Access a test collection to insert data
-      const collection = client.db().collection('testCollection');
+//       // Access a test collection to insert data
+//       const collection = client.db().collection('testCollection');
   
-      // Data to be inserted into the collection
-      const data = [
-        { name: 'John Doe', age: 30, city: 'New York' },
-        { name: 'Jane Smith', age: 25, city: 'Los Angeles' },
-        { name: 'Bob Johnson', age: 40, city: 'Chicago' },
-      ];
+//       // Data to be inserted into the collection
+//       const data = [
+//         { name: 'John Doe', age: 30, city: 'New York' },
+//         { name: 'Jane Smith', age: 25, city: 'Los Angeles' },
+//         { name: 'Bob Johnson', age: 40, city: 'Chicago' },
+//       ];
   
-      // Insert the data into the collection
-      const insertResult = await collection.insertMany(data);
+//       // Insert the data into the collection
+//       const insertResult = await collection.insertMany(data);
   
-      console.log('Data inserted successfully:');
-      console.log(insertResult);
+//       console.log('Data inserted successfully:');
+//       console.log(insertResult);
   
-      // Close the connection
-      await client.close();
-    } catch (error) {
-      console.error('Error connecting to MongoDB Atlas:', error);
-    }
-  }
+//       // Close the connection
+//       await client.close();
+//     } catch (error) {
+//       console.error('Error connecting to MongoDB Atlas:', error);
+//     }
+//   }
   
-  addData();
+//   addData();
 
 
 
