@@ -3,6 +3,7 @@ const express = require('express');
 
 const {connectDB}=require('./utils/db.js');
 const authRoutes=require('./routes/authRoutes.js');
+const employeeRoutes=require('./routes/employeeRoutes.js')
 
 // Creating express object
 const app = express();
@@ -15,7 +16,7 @@ app.use(express.json());
 
 // Routes
 app.use('/auth', authRoutes);
-
+app.use('/employee',employeeRoutes);
 
 // Handling GET request
 app.get('/', (req, res) => {
