@@ -55,7 +55,7 @@ exports.loginEmployee = async (req, res) => {
 
         // Generate JWT token
         const token = jwt.sign({ id: employee._id, username: employee.username, role: employee.role }, 'key');
-
+        console.log(token);
         res.json({ token });
     } catch (error) {
         console.error('Error logging in employee:', error.message);
