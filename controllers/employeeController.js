@@ -152,3 +152,26 @@ exports.getParticipatedHackathons = async (req, res) => {
     }
   };
   
+
+
+
+
+// Get all hackathons and their statuses
+exports.getAllHackathons = async (req, res) => {
+    try {
+      const hackathons = await Hackathon.find();
+      const hackathonsWithStatus = hackathons.map((hackathon) => ({
+        _id: hackathon._id,
+        name: hackathon.name,
+        company: hackathon.company,
+        startDate: hackathon.startDate,
+        endDate: hackathon.endDate,
+        status: hackathon.status, // Access the virtual 'status' property
+      }));
+  
+      res.json(hackathonsWithStatus);
+    } catch (error) {
+      console.error('Error getting hackathons:', error.message);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  };

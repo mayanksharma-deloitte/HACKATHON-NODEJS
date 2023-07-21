@@ -19,4 +19,7 @@ router.get('/search', authenticateToken, employeeController.searchHackathons);
 // Route to list all participants of a Hackathon
 router.get('/participatedHackathons', authenticateToken, employeeController.getParticipatedHackathons);
 
+
+router.get('/allHackathonsStatus', authenticateToken, employeeController.getAllHackathons);
+
 module.exports = router;

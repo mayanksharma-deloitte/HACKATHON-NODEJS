@@ -15,6 +15,20 @@ const hackathonSchema = new mongoose.Schema({
 
 });
 
+
+// Virtual property to get the Hackathon's status
+hackathonSchema.virtual('status').get(function () {
+    const currentDate = new Date();
+  
+    if (currentDate > this.registrationEndDate) {
+      return 'closed';
+    } else if (this.participants.length >= this.maxSlots) {
+      return 'full';
+    } else {
+      return 'open';
+    }
+  });
+
 const Hackathon = mongoose.model('Hackathon', hackathonSchema);
 
 module.exports = Hackathon;
