@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const hackathonSchema = new mongoose.Schema({
 
-  name: { type: String, required: true },
+  name: { type: String, required: true ,unique:true},
   company: { type: String, required: true },
   startDate: { type: Date, required: true },
   endDate: { type: Date, required: true },
