@@ -15,4 +15,8 @@ router.get('/hackathons/:status', authenticateToken,employeeController.getHackat
 // New route to search hackathons by name, company, and technology stack
 router.get('/search', authenticateToken, employeeController.searchHackathons);
 
+
+// Route to list all participants of a Hackathon
+router.get('/participatedHackathons', authenticateToken, employeeController.getParticipatedHackathons);
+
 module.exports = router;
