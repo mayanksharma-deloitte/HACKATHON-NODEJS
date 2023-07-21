@@ -14,7 +14,7 @@ catch(err){
 }
 
 
-// Controller function for employee registration in a hackathon
+// function for employee registration in a hackathon
 exports.registerForHackathon = async (req, res) => {
     const { hackathonName, employeeUsername } = req.body;
   
@@ -67,3 +67,46 @@ exports.registerForHackathon = async (req, res) => {
     }
   };
   
+
+
+
+// function to get hackathons based on status with pagination
+exports.getHackathonsByStatus = async (req, res) => {
+    try {
+      const { status } = req.params;
+      const page = req.query.page || 1;
+      const limit = req.query.limit || 10;
+  
+      const query = {};
+  
+      // Set the query based on the status
+      const currentDate = new Date();
+      if (status === 'upcoming') {
+        query.startDate = { $gte: currentDate };
+      } else if (status === 'active') {
+        query.startDate = { $lte: currentDate };
+        query.endDate = { $gte: currentDate };
+      } else if (status === 'past') {
+        query.endDate = { $lt: currentDate };
+      }
+  
+      const hackathons = await Hackathon.find(query)
+        .skip((page - 1) * limit)
+        .limit(limit);
+  
+      res.json(hackathons);
+    } catch (error) {
+      console.error('Error getting hackathons:', error.message);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  };
+
+
+
+
+
+
+
+
+
+

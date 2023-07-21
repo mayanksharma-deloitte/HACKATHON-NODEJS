@@ -8,7 +8,9 @@ const { authenticateToken, authorizeOrganizer } = require('../utils/authMiddlewa
 // Route to get the profile information of the authenticated employee
 router.get('/profile', authenticateToken,employeeController.getEmployeeProfile);
 
-router.post('/register',authenticateToken,employeeController.registerForHackathon);
+router.post('/registerHackathon',authenticateToken,employeeController.registerForHackathon);
+
+router.get('/hackathons/:status', authenticateToken,employeeController.getHackathonsByStatus);
 
 
 module.exports = router;
