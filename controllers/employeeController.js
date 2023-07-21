@@ -104,6 +104,34 @@ exports.getHackathonsByStatus = async (req, res) => {
 
 
 
+// Function to search hackathons by name, company, and technology stack
+exports.searchHackathons = async (req, res) => {
+    try {
+      const { name, company, technologyStack } = req.query;
+  
+      // Build the search query based on the provided parameters
+      const searchQuery = {};
+      if (name) {
+        searchQuery.name = { $regex: name, $options: 'i' }; // Case-insensitive search
+      }
+      if (company) {
+        searchQuery.company = { $regex: company, $options: 'i' };
+      }
+      if (technologyStack) {
+        searchQuery.requiredTechnologyStack = { $in: [technologyStack] };
+      }
+  
+      // Find hackathons based on the search query
+      const hackathons = await Hackathon.find(searchQuery);
+  
+      res.json(hackathons);
+    } catch (error) {
+      console.error('Error searching hackathons:', error.message);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  };
+
+
 
 
 

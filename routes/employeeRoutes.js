@@ -12,5 +12,7 @@ router.post('/registerHackathon',authenticateToken,employeeController.registerFo
 
 router.get('/hackathons/:status', authenticateToken,employeeController.getHackathonsByStatus);
 
+// New route to search hackathons by name, company, and technology stack
+router.get('/search', authenticateToken, employeeController.searchHackathons);
 
 module.exports = router;
