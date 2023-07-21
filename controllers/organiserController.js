@@ -117,3 +117,62 @@ exports.getParticipantsByHackathon = async (req, res) => {
       res.status(500).json({ error: 'Internal server error' });
     }
   };
+
+
+
+
+
+  // Update a Hackathon by its name
+exports.updateHackathon = async (req, res) => {
+    const { hackathonName } = req.params;
+    const updates = req.body;
+  
+    try {
+      // Find the hackathon by name
+      const hackathon = await Hackathon.findOne({ name: hackathonName });
+      if (!hackathon) {
+        return res.status(404).json({ error: 'Hackathon not found' });
+      }
+  
+      // Check if registration has started
+      if (!hackathon.registrationOpen) {
+        return res.status(400).json({ error: 'Registration has already started. Cannot modify the Hackathon' });
+      }
+  
+      // Update the Hackathon's information
+      Object.assign(hackathon, updates);
+      await hackathon.save();
+  
+      res.json({ message: 'Hackathon updated successfully' });
+    } catch (error) {
+      console.error('Error updating Hackathon:', error.message);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  };
+  
+  // Delete a Hackathon by its name
+exports.deleteHackathon = async (req, res) => {
+    const { hackathonName } = req.params;
+  
+    try {
+      // Find the hackathon by name
+      const hackathon = await Hackathon.findOne({ name: hackathonName });
+      if (!hackathon) {
+        return res.status(404).json({ error: 'Hackathon not found' });
+      }
+  
+      // Check if registration has started
+      if (!hackathon.registrationOpen) {
+        return res.status(400).json({ error: 'Registration has already started. Cannot delete the Hackathon' });
+      }
+  
+      // Delete the Hackathon
+      await hackathon.remove();
+  
+      res.json({ message: 'Hackathon deleted successfully' });
+    } catch (error) {
+      console.error('Error deleting Hackathon:', error.message);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  };
+  

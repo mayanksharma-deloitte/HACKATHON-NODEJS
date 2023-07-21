@@ -14,6 +14,9 @@ router.get('/participants/:hackathonName', authenticateToken, authorizeOrganizer
 
 router.get('/filterParticipants/:hackathonName', authenticateToken, authorizeOrganizer, organiserController.getParticipantsByHackathon);
 
+// In organizerRoutes.js
+router.put('/hackathons/:hackathonName', authenticateToken, authorizeOrganizer, organiserController.updateHackathon);
+router.delete('/hackathons/:hackathonName', authenticateToken, authorizeOrganizer, organiserController.deleteHackathon);
 
 
 
