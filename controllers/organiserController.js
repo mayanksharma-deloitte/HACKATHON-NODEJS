@@ -41,7 +41,40 @@ exports.createHackathon=async(req,res)=>{
   } catch (error) {
     res.status(500).json({ error: 'Failed to create the hackathon.' });
   }
-
-
-
 }
+
+
+
+
+// Function to list all participants of a Hackathon
+exports.listParticipants = async (req, res) => {
+    const { hackathonName } = req.params;
+  
+    try {
+      // Find the hackathon by name
+      const hackathon = await Hackathon.findOne({ name: hackathonName });
+      if (!hackathon) {
+        return res.status(404).json({ error: 'Hackathon not found' });
+      }
+        console.log(req.user.role);
+        console.log(req.user.username);
+        
+      // Check if the authenticated user is the organizer of the hackathon
+      if (req.user.role !== 'organizer' || req.user.username !== hackathon.company) {
+        return res.status(403).json({ error: 'You are not authorized to view participants for this hackathon' });
+      }
+  
+      // Get the list of participants (employees) for the hackathon
+      const participants = await Employee.find({ _id: { $in: hackathon.participants } });
+ 
+      res.json(participants);
+    } catch (error) {
+      console.error('Error listing participants:', error.message);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  };
+
+
+
+
+
