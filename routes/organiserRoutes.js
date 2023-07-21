@@ -12,5 +12,12 @@ router.post('/createHackathon', authenticateToken,authorizeOrganizer,organiserCo
 router.get('/participants/:hackathonName', authenticateToken, authorizeOrganizer, organiserController.listParticipants);
 
 
+router.get('/filterParticipants/:hackathonName', authenticateToken, authorizeOrganizer, organiserController.getParticipantsByHackathon);
+
+// In organizerRoutes.js
+router.put('/hackathons/:hackathonName', authenticateToken, authorizeOrganizer, organiserController.updateHackathon);
+router.delete('/hackathons/:hackathonName', authenticateToken, authorizeOrganizer, organiserController.deleteHackathon);
+
+
 
 module.exports = router;

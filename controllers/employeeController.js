@@ -133,8 +133,45 @@ exports.searchHackathons = async (req, res) => {
 
 
 
+  // Controller function to get the hackathons participated by the employee
+exports.getParticipatedHackathons = async (req, res) => {
+    try {
+      // Find the employee by ID and populate the 'participatedHackathons' field
+      const employee = await Employee.findById(req.user.id).populate('participatedHackathons');
+      if (!employee) {
+        return res.status(404).json({ error: 'Employee not found' });
+      }
+  
+      // Extract the participated hackathons from the populated field
+      const participatedHackathons = employee.participatedHackathons;
+  
+      res.json(participatedHackathons);
+    } catch (error) {
+      console.error('Error getting participated hackathons:', error.message);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  };
+  
 
 
 
 
-
+// Get all hackathons and their statuses
+exports.getAllHackathons = async (req, res) => {
+    try {
+      const hackathons = await Hackathon.find();
+      const hackathonsWithStatus = hackathons.map((hackathon) => ({
+        _id: hackathon._id,
+        name: hackathon.name,
+        company: hackathon.company,
+        startDate: hackathon.startDate,
+        endDate: hackathon.endDate,
+        status: hackathon.status, // Access the virtual 'status' property
+      }));
+  
+      res.json(hackathonsWithStatus);
+    } catch (error) {
+      console.error('Error getting hackathons:', error.message);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  };
