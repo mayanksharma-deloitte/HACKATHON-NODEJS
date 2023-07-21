@@ -12,5 +12,9 @@ router.post('/createHackathon', authenticateToken,authorizeOrganizer,organiserCo
 router.get('/participants/:hackathonName', authenticateToken, authorizeOrganizer, organiserController.listParticipants);
 
 
+router.get('/filterParticipants/:hackathonName', authenticateToken, authorizeOrganizer, organiserController.getParticipantsByHackathon);
+
+
+
 
 module.exports = router;

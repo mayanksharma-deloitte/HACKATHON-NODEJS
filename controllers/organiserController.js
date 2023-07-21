@@ -56,8 +56,8 @@ exports.listParticipants = async (req, res) => {
       if (!hackathon) {
         return res.status(404).json({ error: 'Hackathon not found' });
       }
-        console.log(req.user.role);
-        console.log(req.user.username);
+        // console.log(req.user.role);
+        // console.log(req.user.username);
         
       // Check if the authenticated user is the organizer of the hackathon
       if (req.user.role !== 'organizer' || req.user.username !== hackathon.company) {
@@ -78,3 +78,42 @@ exports.listParticipants = async (req, res) => {
 
 
 
+// Function to get the list of participants for a specific Hackathon with filtering
+exports.getParticipantsByHackathon = async (req, res) => {
+    const { hackathonName } = req.params;
+      const { experienceLevel, technologyStack, businessUnit } = req.query;
+    try {
+      
+      const hackathon = await Hackathon.findOne({ name: hackathonName }).populate({
+        path: 'participants',
+        match: {
+          experienceLevel: experienceLevel || { $exists: true },
+          technologyStack: technologyStack || { $exists: true },
+          businessUnit: businessUnit || { $exists: true },
+        },
+      });
+    //    console.log(hackathonName);
+    //    console.log(hackathon);
+      if (!hackathon) {
+        return res.status(404).json({ error: 'Hackathon not found' });
+      }
+  
+      // Check if the user is an authorized organizer for this Hackathon
+      if (req.user.role !== 'organizer' || req.user.username !== hackathon.company) {
+        return res.status(403).json({ error: 'Forbidden. Access allowed only for organizers.' });
+      }
+  
+      const participants = hackathon.participants.filter((participant) => {
+        return (
+          (!experienceLevel || participant.experienceLevel === experienceLevel) &&
+          (!technologyStack || participant.technologyStack.includes(technologyStack)) &&
+          (!businessUnit || participant.businessUnit === businessUnit)
+        );
+      });
+  
+      res.json(participants);
+    } catch (error) {
+      console.error('Error getting participants:', error.message);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  };
