@@ -54,8 +54,8 @@
     /employee/allHackathonsStatus
 
 ### update a hackathon : 
-   organiser/hackathons/:hackathonName
-
+     organiser/hackathons/:hackathonName
+ 
 ### delete a hackathon : 
      organiser/hackathons/:hackathonName
 
