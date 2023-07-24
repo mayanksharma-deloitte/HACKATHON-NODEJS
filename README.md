@@ -41,13 +41,22 @@
  ### search hackathon by company name or tech stack : 
      /employee/search?technologyStack=React
 
-### view all participants of a hackathon (only hackathon organiser can see) : /organiser/participants/Hackathon Name
+### view all participants of a hackathon (only hackathon organiser can see) : 
+     /organiser/participants/Hackathon Name
 
-### organiser filter participants using tech and experience and business unit : /organiser/filterParticipants/Hackathon Name?experienceLevel=Junior&technologyStack=React
-### participants view participated hackathons : /employee/participatedHackathons
-### all hackathons status dynamic concept : /employee/allHackathonsStatus
+### organiser filter participants using tech and experience and business unit : 
+     /organiser/filterParticipants/Hackathon Name?experienceLevel=Junior&technologyStack=React
 
-### update a hackathon : organiser/hackathons/:hackathonName
-### delete a hackathon : organiser/hackathons/:hackathonName
+### participants view participated hackathons : 
+    /employee/participatedHackathons
+
+### all hackathons status dynamic concept : 
+    /employee/allHackathonsStatus
+
+### update a hackathon : 
+   organiser/hackathons/:hackathonName
+
+### delete a hackathon : 
+     organiser/hackathons/:hackathonName
 
 
