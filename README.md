@@ -35,9 +35,11 @@
               "employeeUsername":""
              }
 
-  ### get hackathon status (active,past,upcoming) : /employee/hackathons/past
+  ### get hackathon status (active,past,upcoming) : 
+      /employee/hackathons/past
     
- ### search hackathon by company name or tech stack : /employee/search?technologyStack=React
+ ### search hackathon by company name or tech stack : 
+     /employee/search?technologyStack=React
 
 ### view all participants of a hackathon (only hackathon organiser can see) : /organiser/participants/Hackathon Name
 
